@@ -7,25 +7,53 @@ class OpenAddressingHashMap:
         self.table = [None] * size
 
     def hash_function(self, key):
-        # TODO: Implementovat hashovací funkci
-        pass
+        """Jednoduchá hashovací funkce."""
+        return key % self.size
 
     def add(self, key, value):
-        # TODO: Přidat prvek s klíčem "key" a hodnotou "value" do hashmapy
-        pass
+        """Přidá prvek s klíčem `key` a hodnotou `value` do hashmapy."""
+        index = self.hash_function(key)
+        start_index = index  # Pro detekci plné tabulky
+
+        while self.table[index] is not None:
+            # Přepiš hodnotu, pokud se shoduje klíč
+            existing_key, _ = self.table[index]
+            if existing_key == key:
+                self.table[index] = (key, value)
+                return
+            # Lineární probing
+            index = (index + 1) % self.size
+            if index == start_index:
+                raise Exception("Hash table is full!")
+
+        # Uložení nového páru (key, value)
+        self.table[index] = (key, value)
 
     def find(self, key):
-        # TODO: Najít prvek s klíčem "key" v hashmapě a vrátit jeho hodnotu
-        pass
+        """Najde a vrátí hodnotu spojenou s klíčem `key`. Pokud klíč neexistuje, vrátí `None`."""
+        index = self.hash_function(key)
+        start_index = index  # Pro detekci cyklu
+
+        while self.table[index] is not None:
+            existing_key, value = self.table[index]
+            if existing_key == key:
+                return value
+            # Lineární probing
+            index = (index + 1) % self.size
+            if index == start_index:
+                break
+
+        return None
 
 def measure_time(operation, *args):
+    """Změří dobu trvání operace."""
     start = time.time()
     result = operation(*args)
     end = time.time()
     return result, end - start
 
 if __name__ == "__main__":
-    hash_map = OpenAddressingHashMap(200000)
+    hash_map = OpenAddressingHashMap(200000)  # Velikost tabulky musí být větší než počet klíčů
     data = list(range(1, 100001))
     random.shuffle(data)
 
