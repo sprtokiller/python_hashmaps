@@ -29,7 +29,6 @@ class OpenAddressingHashMap:
             if self.table[index][0] == key:
                 return self.table[index][1]
             index = (index +1) % self.size
-        return None
 
 def measure_time(operation, *args):
     start = time.time()
