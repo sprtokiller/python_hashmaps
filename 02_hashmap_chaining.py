@@ -7,16 +7,28 @@ class ChainingHashMap:
         self.table = [[] for _ in range(size)]
 
     def hash_function(self, key):
-        # TODO: Implementovat hashovací funkci
-        pass
+        result = key % self.size
+        return result
 
     def add(self, key, value):
-        # TODO: Přidat prvek s klíčem "key" a hodnotou "value" do hashmapy
-        pass
+        index = self.hash_function(key)
+
+        chain = self.table[index]
+
+        for i, (k, value) in enumerate(chain):
+            if k == key:
+                chain[i] = (key, value)
+                return
+        chain.append((key, value))
 
     def find(self, key):
-        # TODO: Najít prvek s klíčem "key" v hashmapě a vrátit jeho hodnotu
-        pass
+        index = self.hash_function(key)
+        chain = self.table[index]
+        
+        for i, value in chain:
+            if i == key:
+                return value
+        return
 
 def measure_time(operation, *args):
     start = time.time()
@@ -41,3 +53,4 @@ if __name__ == "__main__":
         batch = data[i:i+10000]
         _, duration = measure_time(lambda b: [hash_map.find(key) for key in b], batch)
         print(f"Finding batch {i//10000 + 1}: {duration:.6f} s")
+

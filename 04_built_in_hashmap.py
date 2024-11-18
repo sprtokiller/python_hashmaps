@@ -8,12 +8,14 @@ def measure_time(operation, *args):
     return result, end - start
 
 def add_elements(hash_map, keys, values):
-    # TODO: Přidat všechny klíče a hodnoty do hashmapy
-    pass
+    for key, value in zip(keys, values):
+        hash_map[key] = value
 
 def find_elements(hash_map, keys):
-    # TODO: Najít všechny klíče v hashmapě
-    pass
+    foundV = []
+    for key in keys:
+        foundV.append(hash_map.get(key))
+    return foundV
 
 if __name__ == "__main__":
     hash_map = {}
