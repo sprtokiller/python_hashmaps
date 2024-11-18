@@ -7,13 +7,12 @@ class ChainingHashMap:
         self.table = [[] for _ in range(size)]
 
     def hash_function(self, key):
-        # TODO: Implementovat hashovací funkci
-        pass
+        return hash(key) % self.size
+
 
     def add(self, key, value):
-        # TODO: Přidat prvek s klíčem "key" a hodnotou "value" do hashmapy
-        pass
-
+        value % self.size
+        
     def find(self, key):
         # TODO: Najít prvek s klíčem "key" v hashmapě a vrátit jeho hodnotu
         pass
