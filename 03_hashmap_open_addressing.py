@@ -15,7 +15,7 @@ class OpenAddressingHashMap:
         index = self.hash_function(key)
 
         while self.table[index] is not None:
-            existing_key, _ = self.table[index]
+            existing_key, value = self.table[index]
             if existing_key == key:
                 self.table[index] = (key, value)
                 return
