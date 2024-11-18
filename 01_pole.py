@@ -8,12 +8,16 @@ def measure_time(operation, *args):
     return result, end - start
 
 def add_elements(array, elements):
-    # TODO: Přidat všechny prvky z "elements" do pole "array"
-    pass
+    # Přidá všechny prvky z "elements" do pole "array"
+    for element in elements:
+        array.append(element)
 
 def find_elements(array, elements):
-    # TODO: Najít všechny prvky z "elements" v poli "array"
-    pass
+    # Najde všechny prvky z "elements" v poli "array"
+    results = []
+    for element in elements:
+        results.append(element in array)
+    return results
 
 if __name__ == "__main__":
     array = []
