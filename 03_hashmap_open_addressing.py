@@ -7,16 +7,26 @@ class OpenAddressingHashMap:
         self.table = [None] * size
 
     def hash_function(self, key):
-        # TODO: Implementovat hashovací funkci
-        pass
+        return key % self.size
 
     def add(self, key, value):
-        # TODO: Přidat prvek s klíčem "key" a hodnotou "value" do hashmapy
-        pass
+        # Přidá prvek s klíčem "key" a hodnotou "value" do hashmapy
+        table_index = self.hash_function(key)
+        for i in range(self.size):
+            index = (i + table_index) % self.size
+            if(self.table[index] == None):
+                self.table[index] = {key: key, value:value}
+                return
+        OverflowError()
 
     def find(self, key):
-        # TODO: Najít prvek s klíčem "key" v hashmapě a vrátit jeho hodnotu
-        pass
+        # Najde prvek s klíčem "key" v hashmapě a vrátit jeho hodnotu
+        table_index = self.hash_function(key)
+        for i in range(self.size):
+            index = (i + table_index) % self.size
+            if(key in self.table[index]):
+                return self.table[index]
+        return None
 
 def measure_time(operation, *args):
     start = time.time()
