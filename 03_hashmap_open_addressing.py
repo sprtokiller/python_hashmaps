@@ -11,25 +11,19 @@ class OpenAddressingHashMap:
 
     def add(self, key, value):
         index = self.hash_function(key)
-        original_index = index
         while self.table[index] is not None:
             if self.table[index][0] == key:
                 self.table[index] = (key, value)
                 return
             index = (index + 1) % self.size
-            if index == original_index:
-                raise Exception("Hash table is full")
         self.table[index] = (key, value)
 
     def find(self, key):
         index = self.hash_function(key)
-        original_index = index
         while self.table[index] is not None:
             if self.table[index][0] == key:
                 return self.table[index][1]
             index = (index + 1) % self.size
-            if index == original_index:
-                break
         return None
 
 
